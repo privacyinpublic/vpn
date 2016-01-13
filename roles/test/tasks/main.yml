@@ -1,0 +1,6 @@
+# Install VPN tests
+- name: ensure /opt/bin
+  file: path='/opt/bin' state=directory mode=0755
+
+- name: install vpn tests
+  copy: src='../files/testvpn.sh' dest='/opt/bin/testvpn.sh' mode=0555

@@ -1,0 +1,53 @@
+# install deluge
+- name: add the deluge repository
+  apt_repository: repo='ppa:deluge-team/ppa' validate_certs=no update_cache=yes
+
+- name: install deluge deamon
+  apt: name='deluged'
+
+- name: install deluge web
+  apt: name='deluge-webui'
+
+# create deluge user
+- name: create deluge group
+  group: name=deluge
+
+- name: create deluge user
+  user: name=deluge comment="Deluge" group=deluge
+
+# create directories and configuration
+- name: create downloading directory
+  file: path=/home/deluge/downloading state=directory owner=deluge group=deluge
+
+- name: create complete directory
+  file: path=/home/deluge/complete state=directory owner=deluge group=deluge
+
+- name: create .config directory
+  file: path=/home/deluge/.config state=directory owner=deluge group=deluge mode=0700
+
+- name: create deluge configuration directory
+  file: path=/home/deluge/.config/deluge state=directory owner=deluge group=deluge mode=0700
+
+# install deluge configuration
+- stat: path=/home/deluge/.config/deluge/core.conf
+  register: deluge_config
+
+- name: add core configuration setting up directories
+  copy: src='../files/core.conf' dest='/home/deluge/.config/deluge/core.conf'
+  when: deluge_config.stat.exists != True
+
+# install deluge services
+- name: create deluge log directory
+  file: path=/var/log/deluge state=directory mode=755 owner=deluge
+
+- name: deluged service script
+  copy: src='../files/deluged.conf' dest='/etc/init/deluged.conf'
+
+- name: deluge web service script
+  copy: src='../files/deluge-web.conf' dest='/etc/init/deluge-web.conf'
+
+- name: Ensure deluged service is started
+  service: name=deluged state=started enabled=yes
+
+- name: Ensure deluge-web is started
+  service: name=deluge-web state=started enabled=yes

@@ -1,0 +1,1 @@
+This directory is for completed downloads. See README.md for information.

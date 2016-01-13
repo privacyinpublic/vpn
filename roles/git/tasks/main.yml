@@ -1,0 +1,14 @@
+- name: install git
+  apt: name='git' update_cache=yes
+
+- name: ensure .ssh directory
+  file: path="{{ userhome }}/.ssh" state=directory mode=0700
+
+- name: ensure src directory for development
+  file: path="{{ userhome }}/src" state=directory mode=0750
+
+- name: generate ssh key
+  command: ssh-keygen -t rsa -b 4096 -f {{ userhome }}/.ssh/id_rsa -N {{ rsapassphrase }} creates={{ userhome }}/.ssh/id_rsa
+  sudo: true
+  sudo_user: vagrant
+  when: rsapassphrase != ""

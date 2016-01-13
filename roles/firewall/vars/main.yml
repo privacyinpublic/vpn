@@ -1,0 +1,3 @@
+firewall_vpndomain: us-california.privateinternetaccess.com
+nameserver1: 209.222.18.222
+nameserver2: 209.222.18.218

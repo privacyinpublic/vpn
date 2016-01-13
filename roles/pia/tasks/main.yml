@@ -1,0 +1,19 @@
+# Install dependencies
+- name: install openvpn
+  apt: name='openvpn' update_cache=yes
+
+- name: install unzip for unarchive
+  apt: name='unzip' update_cache=yes
+
+# Install PIA and openvpn
+- name: add private internet access openvpn
+  unarchive: src='../files/openvpn.zip' dest='/etc/openvpn'
+
+- name: install credentials from environment variables
+  template: src='../templates/credentials' dest='/etc/openvpn/credentials' mode=0400
+  when: piausername != "" and piapassword != ""
+
+- name: Select a default openvpn configuration
+  copy: src='../files/default.ovpn' dest='/etc/openvpn/client.conf'
+  notify:
+    - restart openvpn

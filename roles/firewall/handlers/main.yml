@@ -1,0 +1,10 @@
+---
+- name: restart firewall
+  command: service iptables save
+  command: service firewall restart
+
+- name: restart eth0
+  command: service network-interface restart INTERFACE=eth0
+
+- name: generate resolvconf
+  command: resolvconf -u

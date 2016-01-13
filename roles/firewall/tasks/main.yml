@@ -1,0 +1,26 @@
+# Update nameservers
+- name: Ensure tail exists for nameserver goodness
+  file: path=/etc/resolvconf/resolv.conf.d/tail state=touch
+
+- name: Ensure nameserver 1 is available
+  lineinfile: dest=/etc/resolvconf/resolv.conf.d/tail line='nameserver {{ nameserver1 }}'
+  notify:
+    - generate resolvconf
+
+- name: Ensure nameserver 2 is available
+  lineinfile: dest=/etc/resolvconf/resolv.conf.d/tail line='nameserver {{ nameserver2 }}'
+  notify:
+    - generate resolvconf
+
+# Install Firewall
+- name: install iptables
+  apt: name='iptables'
+
+- name: define firewall service
+  template: src='../templates/firewall.sh' dest='/etc/init.d/firewall' mode=0555
+
+- name: Ensure the firewall is enabled and will start on boot.
+  service: name=firewall state=started enabled=yes
+
+# Flush handlers to update resolvconf before proceeding
+- meta: flush_handlers
