@@ -7,22 +7,11 @@ $script = <<SCRIPT
     apt-get -qq install python python-pycurl python-apt
 SCRIPT
 
-piaUsername = ENV['PIAUSERNAME'];
-piaPassword = ENV['PIAPASSWORD'];
 extraVars = {};
+extraVars['piausername']    = 'ENTER_YOUR_PRIVATE_INTERNET_ACCESS_PIAUSERNAME_HERE';
+extraVars['piapassword']    = 'ENTER_YOUR_PRIVATE_INTERNET_ACCESS_PASSWORD_HERE';
+extraVars['rsapassphrase']  = 'ENTER_A_SECURE_RSA_PASSWORD_HERE';
 delugeport = 8112;
-
-if ENV['PIAUSERNAME']
-    extraVars['piausername'] = ENV['PIAUSERNAME'];
-end
-
-if ENV['PIAPASSWORD']
-    extraVars['piapassword'] = ENV['PIAPASSWORD'];
-end
-
-if ENV['RSAPASSWORD']
-    extraVars['rsapassphrase'] = ENV['RSAPASSWORD'];
-end
 
 if ENV['DELUGEWEBPORT']
     delugeport = ENV['DELUGEWEBPORT'];

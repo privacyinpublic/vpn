@@ -4,15 +4,6 @@
     - all
   remote_user: vagrant
   sudo: yes
-  vars_prompt:
-    - name: "piausername"
-      prompt: "PIA Username (blank to skip)"
-
-    - name: "piapassword"
-      prompt: "PIA Password (blank to skip)"
-
-    - name: "rsapassphrase"
-      prompt: "Password for git key (blank to skip)"
   roles:
     - deluge
     - pia
