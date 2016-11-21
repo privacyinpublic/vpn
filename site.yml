@@ -14,8 +14,8 @@
     - name: "rsapassphrase"
       prompt: "Password for git key (blank to skip)"
   roles:
-    - pia
-    - firewall
     - deluge
+    - pia
     - git
+    - firewall
     - test
