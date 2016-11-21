@@ -1,6 +1,8 @@
 ---
-- name: restart firewall
+- name: iptables save
   command: service iptables save
+
+- name: restart firewall
   command: service firewall restart
 
 - name: restart eth0
