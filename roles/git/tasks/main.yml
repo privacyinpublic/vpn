@@ -1,6 +1,9 @@
 - name: install git
   apt: name='git' update_cache=yes
 
+- name: install haveged
+  apt: name='haveged' update_cache=yes
+  
 - name: ensure .ssh directory
   file: path="{{ userhome }}/.ssh" state=directory mode=0700
 
