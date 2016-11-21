@@ -7,11 +7,24 @@ Firewalled to protect from dns and other leakage in the event of the VPN becomin
 
 * [Vagrant](https://www.vagrantup.com/)
 * [Ansible](www.ansible.com)
-* a VPN provider like [Private Internet Access](https://www.privateinternetaccess.com/)
+* This is set up for the VPN provider [Private Internet Access](https://www.privateinternetaccess.com/)  
+  if you prefer another VPN provider, you have to edit the `/etc/openvpn` folder and disable the installation of the firewall in `site.yml`.
 
 On Debian like systems just install
 
     apt-get install vagrant ansible
+
+
+# Configuration
+
+## Environment Variables
+
+In `Vagrantfile` you must configure these variables:
+
+* PIAUSERNAME: Your Private Internet Access Username
+* PIAPASSWORD: Your Private Internet Access Password
+* DELUGEWEBPORT: the port opened on this machine; default 8112
+
 
 # Usage
 
@@ -68,15 +81,6 @@ Check your external ip address:
     /opt/bin/testvpn.sh
 
 Hope to add dns leak tests and more later.
-
-
-# Configuration
-
-## Environment Variables
-
-* PIAUSERNAME: Your Private Internet Access Username
-* PIAPASSWORD: Your Private Internet Access Password
-* DELUGEWEBPORT: the port opened on this machine; default 8112
 
 
 # Troubleshooting
