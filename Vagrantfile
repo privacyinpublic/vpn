@@ -37,7 +37,7 @@ Vagrant.configure(2) do |config|
 #    config.vm.provision "shell", inline: $script
 
     config.vm.provision "ansible" do |ansible|
-        ansible.verbose = "v"
+        ansible.verbose = "v" # use "vvv" for more debug output
         ansible.playbook = "site.yml"
         ansible.limit = 'all'
         ansible.extra_vars = extraVars
